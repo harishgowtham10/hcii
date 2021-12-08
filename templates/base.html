@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+	<script src="https://kit.fontawesome.com/f9d6df2339.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+	<title>Eat Your Feelings</title>
+</head>
+
+<body>
+	<header>
+		<nav id="mainNav" class=" fixed-top navbar navbar-offset navbar-expand-lg navbar-light">
+			<div class="container">
+				<a class="navbar-brand" href="{{ url_for('index') }}">Eat Your Feelings</a>
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+					data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<i class="fas fa-bars"></i>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav ms-auto">
+						{% if session.email %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('index') }}">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('get_recipes') }}">Recipes</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('create_recipe') }}">Create Recipe</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('profile') }}">My Account</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('logout') }}">Log Out</a>
+						</li>
+						{% else %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('login') }}">Log In</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<section>
+		<div class="container">
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+			{% for message in messages %}
+			<div class="flashes">
+				<h4 class="lobster-brown">{{ message }}</h4>
+			</div>
+			{% endfor %}
+			{% endif %}
+			{% endwith %}
+
+
+			{% block content %}
+			{% endblock %}
+		</div>
+	</section>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<ul class="list-inline text-center">
+						<li class="list-inline-item">
+							<a href="https://github.com/PodgeCollins/EatYourFeelings_MS3">
+								<span class="fa-stack fa-lg">
+									<i class="fab fa-github"></i>
+								</span>
+							</a>
+						</li>
+					</ul>
+					<p class="copyright">Copyright &copy; Your Website <span id="copyright"></span></p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+	<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+	<script>
+		$("#copyright").text(new Date().getFullYear());
+	</script>
+</body>
+
+</html>
