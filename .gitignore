@@ -1,0 +1,7 @@
+core.Microsoft*
+core.mongo*
+core.python*
+*.py[cod]
+node_modules/
+env.py
+__pycache__/
